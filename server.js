@@ -1,19 +1,21 @@
-// var open = require('open');
 var path = require('path');
 var morgan = require('morgan');
 var express = require('express');
 var webpack = require('webpack');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 
-mongoose.connect('mongodb://localhost/sodamachine');
+mongoose.connect('mongodb://localhost/soda');
 var db = mongoose.connection;
+var course = require('./src/db/courseCatalogueSchema.js');
 
 var config = require('./webpack.config');
 var compiler = webpack(config);
 var app = express();
+
 app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
+    noInfo: false,
     publicPath: config.output.publicPath
 }));
 
@@ -32,15 +34,13 @@ db.on("disconnect", function (err) {
 });
 
 app.get('/', function (req, res){
-    res.sendFile(path.resolve(__dirname, './public/', 'landing.html'))
+    res.sendFile(path.resolve(__dirname, './public/', 'index.html'))
 });
-// app.get('/index', function (req, res){
-//     res.sendFile(path.resolve(__dirname, './public/', 'index.html'))
-// });
-//
-// app.get('/class', function(req , res){
-//     db.courses.find(function(err,docs){
-//         res.render('mongo',{data:docs});
+
+// app.get('/api', function (req, res){
+//     course.getCourses(function(err, courses) {
+//         if(err) throw err;
+//         res.json(courses);
 //     });
 // });
 

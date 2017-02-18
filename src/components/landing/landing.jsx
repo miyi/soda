@@ -1,4 +1,5 @@
 import React from "react";
+import Map from "./map.js"
 import { Link } from "react-router";
 import {
   Code,
@@ -17,9 +18,11 @@ import {
   Team,
   TeamMember,
 } from "neal-react";
+// import courses from '../db/courseCatalogueSchema.js';
 
 const brandName = "Soda Session";
 const brand = <span>{brandName}</span>;
+// console.log(courses.getCourses());
 
 const onSignup = ({ name: name, email: email, password: password }) => Stripe.StripeHandler.open({
   name : name,
@@ -46,22 +49,22 @@ const pricingPlan1 = {
     "Works on mobile": true,
     "Custom callbacks": true,
     "Extra Feature 1": false,
-    "Extra Feature 2": false,
+    "Extra Feature 2": false
   },
-  onClick: onSignup,
+  onClick: onSignup
 };
 
 const pricingPlan2 = Object.assign({}, pricingPlan1, {
   name: "Tutors",
   features: Object.assign({}, pricingPlan1.features, {
-    "Extra Feature 1": true,
+    "Extra Feature 1": true
   }),
 });
 
 const pricingPlan3 = Object.assign({}, pricingPlan2, {
   name: "Parents",
   features: Object.assign({}, pricingPlan2.features, {
-    "Extra Feature 2": true,
+    "Extra Feature 2": true
   }),
 });
 
@@ -86,7 +89,6 @@ const pricingPlan3 = Object.assign({}, pricingPlan2, {
 //   </Section>
 // </Page>
 // `;
-
 
 //========in export default (props) => return ()
 // <Section className="nopad-bottom">
@@ -114,17 +116,6 @@ export default (props) => {
         </NavItem>
       </Navbar>
 
-      <Hero backgroundImage="assets/img/hero-bg-01.jpg"
-        className="text-xs-center">
-        <h1 className="display-4"> Learning revolution @UBC </h1>
-        <p className="lead">Reinventing the role of interpersonal relationships in education.</p>
-        <p className="lead">A personal guide ready to help just a click away.</p>
-        <p>
-          <a href="/map" target="_blank" className="btn btn-white">
-            find your class
-          </a>
-        </p>
-      </Hero>
 
       <Section className="subhero">
         <ImageList centered>
@@ -134,8 +125,6 @@ export default (props) => {
           <ImageListItem src="assets/img/press/techcrunch-logo.jpg" url="http://techcrunch.com/"/>
         </ImageList>
       </Section>
-
-
 
       <Section>
         <HorizontalSplit padding="md">
@@ -153,7 +142,7 @@ export default (props) => {
           </div>
         </HorizontalSplit>
       </Section>
-
+      <Map/>
       <Section heading="Inline and Modal Signup components" className="gray">
         <p>Use these components to capture user data, display a payment dialog and/or send them to your own backend for handling. Of course, you could also just use a Typeform to collect user emails. </p>
         <SignupInline onSubmit={onSignup}/>
@@ -199,7 +188,8 @@ export default (props) => {
         </Team>
       </Section>
 
-      <Footer brandName={brandName}
+      <Footer
+          brandName={brandName}
         facebookUrl="http://www.facebook.com"
         twitterUrl="http://www.twitter.com/dennybritz"
         githubUrl="https://github.com/dennybritz/neal-react"

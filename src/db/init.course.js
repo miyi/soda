@@ -1,13 +1,21 @@
-var Course = require("./courselog.js");
+var Course = require("./courseCatalogueSchema.js");
 var mongoose = require("mongoose");
 var assert = require("assert");
 
-var newclass = new Course({"courseID" : "MATH440", "department" : "Math"});
-console.log(newclass.courseID);
-newclass.save(function (err) {
-    if (err) return handleError(err);
-});
 
+mongoose.connect('mongodb://localhost/soda');
+var db = mongoose.connection;
+
+db.on('open', function (ref) {
+    console.log('Connected to mongo server.');
+});
+db.on('error', function (err) {
+    console.log('Could not connect to mongo server!');
+    console.log(err);
+});
+db.on("disconnect", function (err) {
+    console.log('disconnected from mongo server...');
+});
 
 coursedb = [
     { "courseID" : "MATH110", "department" : "Math"},
